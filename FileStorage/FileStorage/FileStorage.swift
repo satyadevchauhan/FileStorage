@@ -20,6 +20,7 @@ class FileStorage {
         
     }
     
+    /// Get path to store data.
     public func getPath(_ path: String) -> URL {
         let fileName = String(path.md5)
         return FileStorage.baseFolderPath.appendingPathComponent(fileName)
@@ -68,7 +69,7 @@ extension FileStorage {
     
     // MARK: NSCoding
     
-    /// Set an object for key. This object must inherit from `NSObject` and implement `NSCoding` protocol. `String`, `Array`, `Dictionary` conform to this method.
+    /// Set an object for key. This object must inherit from `NSObject` and implement `NSCoding` protocol.
     @discardableResult public func setObject(_ object: NSCoding, forKey: String) -> Bool {
         
         //deprecated in iOS 11
@@ -84,7 +85,7 @@ extension FileStorage {
         }
     }
     
-    /// Read an object for key. This object must inherit from `NSObject` and implement NSCoding protocol. `String`, `Array`, `Dictionary` conform to this method
+    /// Get an object for key. This object must inherit from `NSObject` and implement NSCoding protocol.
     public func getObject(_ forKey: String) -> NSObject? {
         let data = readData(forKey)
         
@@ -108,7 +109,7 @@ extension FileStorage {
         }
     }
     
-    /// Get an object for key. This object must inherit from `NSObject` and implement NSCoding protocol. `String`, `Array`, `Dictionary` conform to this method
+    /// Get an object for key. This object must inherit from `NSObject` and implement Codable protocol.
     public func getObject<T: Decodable>(_ forKey: String, as type: T.Type) -> T? {
         if let data = readData(forKey) {
             do {
